@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class MyUtils {
+    //bug修复
     //根据维度获取各个簇的中心点并确定划分平面
     public static double getAllRecsMid(List<Rectangle> rectangles, int dim) {
         Map<String, Double> mids = new HashMap<>();
