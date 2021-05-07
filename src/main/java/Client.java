@@ -20,7 +20,6 @@ public class Client {
         /**
          * k：维度
          * dim：在第几个维度划分
-         * 正在修改
          * minCluster：划分标准
          * startLine：开始的行数
          * num: 点个数
