@@ -22,3 +22,6 @@ target/
 node_modules/
 
 appName/src/test/*
+AllLeftAndRightRecs.txt
+recs.txt
+resolute*.txt
