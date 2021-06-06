@@ -2,7 +2,9 @@ package utils;
 
 import SKDTree.Rectangle;
 import netscape.security.UserTarget;
+import org.junit.Test;
 
+import javax.swing.plaf.IconUIResource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -266,4 +268,34 @@ public class MyUtils {
             }
         }
     }
+
+    @Test
+    public void readFile01() throws IOException {
+        FileReader fr = new FileReader("C:\\Users\\13540\\Desktop\\covtype.data");
+        BufferedReader br = new BufferedReader(fr);
+
+        String line = "";
+        String[] arrs = null;
+        String typeArr = null;
+        int count = 0;
+        FileWriter fw = new FileWriter(new File("data.txt"));
+        BufferedWriter bw = new BufferedWriter(fw);
+        FileWriter fw2 = new FileWriter(new File("typeRes.txt"));
+        BufferedWriter bw2 = new BufferedWriter(fw2);
+        while ((line = br.readLine()) != null) {
+            line = count + "," + line;
+            arrs = line.split(",");
+            typeArr = arrs[0] + "," + arrs[arrs.length - 1];
+            bw.write(line + "\t\n");
+            bw2.write(typeArr + "\t\n");
+            count++;
+        }
+        br.close();
+        fr.close();
+        bw.close();
+        bw2.close();
+        fw.close();
+        fw2.close();
+    }
+
 }

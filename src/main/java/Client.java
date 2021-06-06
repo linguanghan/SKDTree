@@ -31,29 +31,45 @@ public class Client {
          */
         String fileName = "D:\\study\\offer\\Java\\SKDtree\\src\\data.txt";
         String fileDir = "D:\\study\\offer\\Java\\SKD";
-        int k = 4;
+        int k = 6;
         int dim = 0;
         int minCluster = k << 1;
         int startLine = 0;
-        int num = 100;
-        int radius = 30;
+        int num = 3000;
+        int radius = 50;
         int pointNum = 2;
-        double density = 0.000000009;
+        double density = 0.0002;
         int initCount = num;
-        int whileCount = 100;
+        int whileCount = 300;
         int lineNum = whileCount;
+        int typeNum = 7;
         MyUtils.deleteFileStartWith(fileDir, "AllLeft");
+
+        List<ClusterDataPoint> dps = new ArrayList<>();
+        SKDTree skd = null;
         // OPTICS聚类
         ClusterAnalysis ca = new ClusterAnalysis();
-        List<ClusterDataPoint> dps = ca.getClusterPoints(fileName, startLine, num, k, radius, pointNum);
+        NoneLeafNode tree = null;
+        while (dps.size() < 30) {
 
-        //获取：最大框和各个簇的框
-        ArrayList<Rectangle> rectangles = ca.getMaxRecAndClustersRec(dps);
+            dps = ca.getClusterPoints(fileName, startLine, num, k, radius, pointNum);
 
-        //递归划分+建树
-        SKDTree skd = new SKDTree();
-        NoneLeafNode tree = skd.build(rectangles, dim, minCluster, k);
+            //获取：最大框和各个簇的框
+            ArrayList<Rectangle> rectangles = ca.getMaxRecAndClustersRec(dps);
 
+            //递归划分+建树
+            skd = new SKDTree();
+            tree = skd.build(rectangles, dim, minCluster, k);
+
+
+
+
+            if(dps.size() < 30){
+                radius++;
+            }
+        }
+
+        density = (tree.getDensity() + tree.getDensity() / 2);
         int leftPoint = 0;
         startLine += initCount;
         //用来存没有被插入的点
@@ -112,6 +128,10 @@ public class Client {
             for (int i = 0; i < resultTypes.length; i++) {
                 System.out.println("类型" + (i + 1) + " =>" + resultTypes[i]);
             }
+
+//            if(resultTypes.length == typeNum||circle>100){
+//                break;
+//            }
         }
     }
 }
